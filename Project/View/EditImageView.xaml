@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="Project.View.EditImageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Project.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Horizontal" AllowDrop="True" DragOver="{x:Bind Source.DragOver}" Drop="{x:Bind Source.EditDrag}">
+            <Image Source="{x:Bind Source.Selected.Paht, Mode=OneWay}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Name :"/>
+            <TextBox Text="{x:Bind Source.Selected.Name, Mode=TwoWay}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Description :"/>
+            <TextBox Text="{x:Bind Source.Selected.Description, Mode=TwoWay}" TextWrapping = "Wrap" MinHeight="70"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" >
+            <TextBlock Text="Location :"/>
+            <TextBox Text="{x:Bind Source.Selected.Location, Mode=TwoWay}"/>
+        </StackPanel>
+    </Grid>
+</Page>

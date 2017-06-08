@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="Project.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Project"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mainGrid">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup  x:Name="myGroup">
+                <VisualState x:Name="large">
+                    <!--every state must have StateTriggers (on off) and Setters (actions)-->
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--<Setter Target="toggle.Visibility" Value="Collapsed" />-->
+                        <Setter Target="toggle.IsOn" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="small">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="200" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        
+                        <!--<Setter Target="toggle.Visibility" Value="Visibility" />-->
+                        <Setter Target="toggle.IsOn" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ToggleSwitch Name="toggle" OnContent="Hide" OffContent="Show"/>
+        <SplitView AllowDrop="True" Grid.Row="1" OpenPaneLength="200" IsPaneOpen="{Binding ElementName=toggle, Path=IsOn}" DisplayMode="CompactInline" CompactPaneLength="30" >
+        <SplitView.Pane>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center"  VerticalAlignment="Center">
+            <ListBox SelectionMode="Single" Name="lbMenu">
+                <ListBox.Items>
+                        <ListBoxItem IsSelected="True" Tag="galery" Tapped="{x:Bind Source.NavigateToGalery}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontFamily="OpenSymbol" />
+                                    <TextBlock Text=" All Images:"/>
+                                </StackPanel>
+                    </ListBoxItem>
+                        <ListBoxItem Tag="edit" Tapped="{x:Bind Source.NavigateToEdit}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="" FontFamily="OpenSymbol" />
+                                    <TextBlock Text=" Edit Image:"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                </ListBox.Items>
+                    </ListBox>
+                    <StackPanel  Margin="5" >
+                        <Button Click="{x:Bind Source.DeleteImage}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Text="✘" FontFamily="DejaVu Sans" />
+                            <TextBlock Text=" Remove Image:" FontFamily="DejaVu Sans" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Margin="5" >
+                        <Button Click="{x:Bind Source.AddFromCamera}">
+                            <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="◘" FontFamily="DejaVu Sans" />
+                            <TextBlock Text=" Add from Camera" />
+                            </StackPanel>
+                        </Button>
+                        
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5" >
+                        <TextBlock Text="Theme :"/>
+                        <ComboBox SelectionChanged="ThemeChange" >
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="Light"/>
+                                <ComboBoxItem Content="Dark"/>
+                            </ComboBox.Items>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+            </SplitView.Pane>
+            <SplitView.Content>
+            <Frame Name="contentFrame">
+            </Frame>
+            </SplitView.Content>
+        </SplitView>
+    </Grid>
+</Page>
